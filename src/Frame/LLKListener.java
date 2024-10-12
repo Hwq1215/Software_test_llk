@@ -22,7 +22,7 @@ private int count = 0;
 
 public LLKListener(Graphics2D g) {
 		this.g = g;
-		// ÉèÖÃÏßÌõµÄ´ÖÏ¸
+		//è®¾ç½®çº¿æ¡çš„ç²—ç»†
 		this.g.setStroke(new BasicStroke(5));
 		this.g.setColor(Color.GREEN);
 	}
@@ -42,22 +42,22 @@ public void mousePressed(MouseEvent e) {
 @Override
 public void mouseReleased(MouseEvent e) {
 
-	// »ñµÃÊÂ¼şÔ´¶ÔÏó£º²úÉúÊÂ¼şµÄ¶ÔÏó,¼´ÎªÓÎÏ·Ãæ°å
+	// è·å¾—äº‹ä»¶æºå¯¹è±¡ï¼šäº§ç”Ÿäº‹ä»¶çš„å¯¹è±¡,å³ä¸ºæ¸¸æˆé¢æ¿
 	JPanel panel = (JPanel) e.getSource();
 	
-	// »ñµÃ¹â±ê°´ÏÂµÄÎ»ÖÃ
+	// è·å¾—å…‰æ ‡æŒ‰ä¸‹çš„ä½ç½®
 			int x = e.getX();
 			int y = e.getY();
 	 
-			// ±£´æ×ø±ê£¬ÓÃÓÚ»æÖÆÌáÊ¾¿ò
+			// ä¿å­˜åæ ‡ï¼Œç”¨äºç»˜åˆ¶æç¤ºæ¡†
 			int r = (y - Y0) / SIZE;
 			int c = (x - X0) / SIZE;
 			int xp = X0 + c * SIZE;
 			int yp = Y0 + r * SIZE;
-			//½«Õâ¸öµãÌí¼Ó½øÌáÊ¾¿òµãµÄ¶ÓÁĞÖĞ
+			//å°†è¿™ä¸ªç‚¹æ·»åŠ è¿›æç¤ºæ¡†ç‚¹çš„é˜Ÿåˆ—ä¸­
 			showBoradList.add(new Point(xp, yp));
 			
-			//ÔÚµã»÷µÄµãËùÔÚµÄÍ¼Æ¬Î»ÖÃ»æÖÆ¾ØĞÎ
+			//åœ¨ç‚¹å‡»çš„ç‚¹æ‰€åœ¨çš„å›¾ç‰‡ä½ç½®ç»˜åˆ¶çŸ©å½¢
 			g.drawRect(xp, yp, SIZE, SIZE);
 		if(count == 0) {
 			this.icon1 = getImgLocation(x, y); 
@@ -86,12 +86,12 @@ public void mouseReleased(MouseEvent e) {
 						Algr.onePoint(r1, c1, r2, c2) ||
 						Algr.twoPoint(r1, c1, r2, c2)
 						){
-						// ÏÈ»æÖÆÌáÊ¾Ïß
+						// å…ˆç»˜åˆ¶æç¤ºçº¿
 						for (int i = 0; i < wireList.size(); i += 2) {
 							Point p1 = wireList.get(i);
 							Point p2 = wireList.get(i + 1);
 	 
-							// ½«ÏÂ±ê×ª³É×ø±ê
+							// å°†ä¸‹æ ‡è½¬æˆåæ ‡
 							int x1 = X0 + p1.y * SIZE + SIZE / 2;
 							int y1 = Y0 + p1.x * SIZE + SIZE / 2;
 	 
@@ -101,10 +101,12 @@ public void mouseReleased(MouseEvent e) {
 							g.drawLine(x1, y1, x2, y2);
 						}
 							wireList.clear();
-							marks++;
+							this.updateMarks(1);
 							MainJFrame.visableLabel.setText(marks + "");
+							//æ¸¸æˆç»“æŸ TODO
 							if(marks == COLS * ROWS/2) {
-								MainJFrame.visableLabel.setText("ÓÎÏ·½áÊø£¬°´¿ªÊ¼ÖØĞÂ¿ªÊ¼");
+								//æ¸¸æˆç»“æŸï¼ŒæŒ‰å¼€å§‹é‡æ–°å¼€å§‹
+								MainJFrame.visableLabel.setText("æ¸¸æˆç»“æŸï¼ŒæŒ‰å¼€å§‹é‡æ–°å¼€å§‹");
 							}
 							try {
 								Thread.sleep(500);
@@ -113,7 +115,8 @@ public void mouseReleased(MouseEvent e) {
 							}
 						ICONS[r1][c1] = null;
 						ICONS[r2][c2] = null;
-						System.out.println("ÏàÍ¬£¬¿ÉÏû³ı");
+						//ç›¸åŒï¼Œå¯æ¶ˆé™¤
+						System.out.println("ç›¸åŒï¼Œå¯æ¶ˆé™¤");
 					}
 					
 				}
@@ -136,6 +139,15 @@ public void mouseEntered(MouseEvent e) {
 public void mouseExited(MouseEvent e) {
 	// TODO Auto-generated method stub
 	
+}
+
+public int updateMarks(int addmarks){	
+	marks += addmarks;
+	return marks;
+}
+
+public boolean isGameEnd(){
+	return true;
 }
 
 private ImageIcon getImgLocation(int x,int y) {

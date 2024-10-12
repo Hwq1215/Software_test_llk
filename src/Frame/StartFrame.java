@@ -33,33 +33,36 @@ public class StartFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public StartFrame() {
+	public StartFrame() {	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 577, 384);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.contentPane = new JPanel();
+		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		this.contentPane.setLayout(null);
 		
-		JButton XiuXianButton = new JButton("\u4F11\u95F2\u6A21\u5F0F");
+		JButton XiuXianButton = new JButton("休闲模式");
 		XiuXianButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainJFrame frame = new MainJFrame();
+				MainJFrame frame = chooseMode(2);
 				frame.initUI(2);
-				
 			}
 		});
 		XiuXianButton.setBounds(203, 93, 126, 43);
-		contentPane.add(XiuXianButton);
+		this.contentPane.add(XiuXianButton);
 		
-		JButton DaoJiShiButton = new JButton("\u5012\u8BA1\u65F6\u6A21\u5F0F");
+		JButton DaoJiShiButton = new JButton("倒计时模式");
 		DaoJiShiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainJFrame frame = new MainJFrame();
+				MainJFrame frame = chooseMode(1);
 				frame.initUI(1);
 			}
 		});
 		DaoJiShiButton.setBounds(203, 187, 126, 43);
-		contentPane.add(DaoJiShiButton);
+		this.contentPane.add(DaoJiShiButton);
+	}
+
+	public MainJFrame chooseMode(int initmode ){
+		return new MainJFrame(initmode);
 	}
 }

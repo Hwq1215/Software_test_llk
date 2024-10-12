@@ -5,16 +5,12 @@ import javax.swing.JPanel;
 import Base.Config;
 import Base.Point;
 
-import java.awt.GridBagLayout;
-
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
+
 import java.awt.GridLayout;
 import Base.Algr;
 public class PlayJPanel extends JPanel implements Config{
@@ -65,15 +61,13 @@ public class PlayJPanel extends JPanel implements Config{
 									Algr.onePoint(i, j, m, n) ||
 									Algr.twoPoint(i, j, m, n)
 										) {
-									//绘制矩形
 									g.drawRect(X0 + j*SIZE,Y0 + i*SIZE,SIZE,SIZE );
 									g.drawRect(X0 + n*SIZE,Y0 + m*SIZE,SIZE,SIZE);
-									// 绘制提示线
 									for (int k = 0; k < wireList.size(); k += 2) {
 										Point p1 = wireList.get(k);
 										Point p2 = wireList.get(k + 1);
 				 
-										// 将下标转成坐标
+
 										int x1 = X0 + p1.y * SIZE + SIZE / 2;
 										int y1 = Y0 + p1.x * SIZE + SIZE / 2;
 				 

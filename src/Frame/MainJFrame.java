@@ -13,16 +13,15 @@ import javax.swing.border.EmptyBorder;
 import Base.Config;
 import Base.Utils;
 
-import java.awt.CardLayout;
+
 import javax.swing.JButton;
-import javax.swing.JLayeredPane;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.Frame;
+
 import java.awt.Graphics2D;
-import Base.Utils;
-import Frame.LLKListener;
+
 public class MainJFrame extends JFrame implements Config{
 	private JPanel contentPane;
 	private JButton startButton;
@@ -30,6 +29,7 @@ public class MainJFrame extends JFrame implements Config{
 	private PlayJPanel playJPanel;
 	public static JLabel visableLabel;
 	private LLKListener lis;
+	private int initMode = 0;
 	/**
 	 * Launch the application.
 	 */
@@ -37,8 +37,8 @@ public class MainJFrame extends JFrame implements Config{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainJFrame frame = new MainJFrame();
-					frame.initUI(1);
+					MainJFrame frame = new MainJFrame(1);
+					frame.initUI(frame.initMode);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,26 +50,26 @@ public class MainJFrame extends JFrame implements Config{
 	/**
 	 * Create the frame.
 	 */
-	public MainJFrame() {
+	public MainJFrame(int initMode) {
+		this.initMode = initMode;
 		this.setTitle("连连看");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(300, 300, 800, 700);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.contentPane = new JPanel();
+		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		startButton = new JButton();
-		startButton.setFont(new Font("����", Font.PLAIN, 16));
+		startButton.setFont(new Font("开始", Font.PLAIN, 16));
 		startButton.setBounds(368, 582, 110, 50);
 		
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				initUI(0);
+				initUI(initMode);
 			}
 		});
 		startButton.setText("\u5F00\u59CB");
 		endButton = new JButton();
-		endButton.setFont(new Font("����", Font.PLAIN, 16));
+		endButton.setFont(new Font("结束", Font.PLAIN, 16));
 		endButton.setBounds(488, 582, 110, 50);
 		
 		endButton.addActionListener(new ActionListener() {
@@ -78,7 +78,7 @@ public class MainJFrame extends JFrame implements Config{
 			}
 		});
 		endButton.setText("\u7ED3\u675F");
-		contentPane.setLayout(null);
+		this.contentPane.setLayout(null);
 		getContentPane().add(startButton);
 		getContentPane().add(endButton);
 		
@@ -94,7 +94,7 @@ public class MainJFrame extends JFrame implements Config{
 		visableLabel.setBounds(116, 582, 45, 50);
 		contentPane.add(visableLabel);
 		
-		JButton btnNewButton = new JButton("\u63D0\u793A");
+		JButton btnNewButton = new JButton("提示");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				giveAction();
@@ -104,7 +104,8 @@ public class MainJFrame extends JFrame implements Config{
 		btnNewButton.setBounds(608, 582, 104, 50);
 		contentPane.add(btnNewButton);
 	}
-	//1�����ʱ��2�������ʱ
+
+	//初始化UI
 	public void initUI(Integer enable) {
 		Utils.initPicData();
 		playJPanel = new PlayJPanel();
@@ -113,10 +114,11 @@ public class MainJFrame extends JFrame implements Config{
 		this.setResizable(false);
 		this.setVisible(true);
 		Graphics2D g = (Graphics2D) playJPanel.getGraphics();
-		// ������������
+		// 新建监听对象
 		lis = new LLKListener(g);
 		playJPanel.update(g);
-		// �����������������
+
+		//增加鼠标监听
 		playJPanel.addMouseListener(lis);
 		LLKListener.marks = 0;
 		visableLabel.setText(LLKListener.marks+"");
@@ -125,11 +127,11 @@ public class MainJFrame extends JFrame implements Config{
 			this.add(timePanel);
 		}
 	} 
-	
+	//提示
 	public void giveAction() {
 		Graphics2D g = (Graphics2D) playJPanel.getGraphics();
 		PlayJPanel.giveAct(g);
-		LLKListener.marks -= 10;
+		//LLKListener.marks -= 10;
 		visableLabel.setText(""+ LLKListener.marks);
 	}
-}
+}	

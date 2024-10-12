@@ -8,7 +8,7 @@ public interface Config {
 	public static final int X0 = 20;
 	public static final int Y0 = 20;
 	
-	public static final int picCounts = 14;
+	public static final int picCounts = 7;
 	
 	public static int SIZE = 40;
 	
@@ -20,4 +20,6 @@ public interface Config {
 	public ArrayList<Point> wireList = new ArrayList<Point>(); 
 	
 	public ArrayList<Point> showBoradList = new ArrayList<Point>();
+
+	
 }

@@ -28,7 +28,6 @@ public class TimePanel extends JPanel implements Config{
 		Timer timer = new Timer();
 		lblNewLabel.setText("剩余" + count + "s");
 		timer.schedule(new TimerTask() {
-			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
