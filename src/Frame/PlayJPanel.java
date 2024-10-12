@@ -44,6 +44,7 @@ public class PlayJPanel extends JPanel implements Config{
 		}
 	}
 	
+	//提示
 	public static void giveAct(Graphics2D g) {
 		g.setStroke(new BasicStroke(5));
 		g.setColor(Color.GREEN);

@@ -67,6 +67,7 @@ public class MainJFrame extends JFrame implements Config{
 				initUI(initMode);
 			}
 		});
+		
 		startButton.setText("\u5F00\u59CB");
 		endButton = new JButton();
 		endButton.setFont(new Font("结束", Font.PLAIN, 16));
@@ -77,6 +78,7 @@ public class MainJFrame extends JFrame implements Config{
 				dispose();
 			}
 		});
+		
 		endButton.setText("\u7ED3\u675F");
 		this.contentPane.setLayout(null);
 		getContentPane().add(startButton);
