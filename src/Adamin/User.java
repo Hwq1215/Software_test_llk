@@ -1,9 +1,11 @@
 package Adamin;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
     public String account;
     public String password;
-    
+
     public User(){
         this.account = null;
         this.password = null;
@@ -14,7 +16,4 @@ public class User {
         this.password = password;
     }
 
-    public User(String account,String password){
-
-    }
 }
