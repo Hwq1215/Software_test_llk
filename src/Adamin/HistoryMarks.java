@@ -18,4 +18,10 @@ public class HistoryMarks implements Serializable{
         this.account = account;
         this.marks = 0;
     }
+
+    HistoryMarks(String account,int marks){
+        this.date = new Date();
+        this.account = account;
+        this.marks = 0;
+    }
 }
