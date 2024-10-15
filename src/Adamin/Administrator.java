@@ -62,7 +62,6 @@ public class Administrator<T> implements AdministratorImf<T> {
             success = true;
         }catch(Exception e){
             System.out.println("error in store "+filePath);
-            success = false;
         }
 
         return success;
