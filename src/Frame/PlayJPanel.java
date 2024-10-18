@@ -21,8 +21,6 @@ public class PlayJPanel extends JPanel implements Config{
 	/**
 	 * Create the panel.
 	 */
-	
-	
 	public PlayJPanel() {
 		this.setBounds(10, 10, 760, 460);
 		setLayout(new GridLayout(1, 0, 0, 0)); 

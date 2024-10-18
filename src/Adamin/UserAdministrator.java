@@ -7,7 +7,7 @@ public class UserAdministrator extends Administrator<ArrayList<User>>{
     private static String userFileName = UserAdministrator.class.getSimpleName() + Administrator.storePreix;
     private static ArrayList<User> users;
     //注册错误的枚举类
-    enum ResigterError {
+    public static enum ResigterError {
         ACCOUNT_EXIST("账户已存在"),
         ACCOUNT_ILLEGAL("账户不合法"),
         PASSWORD_ILLEGAL("密码不合法"),
@@ -23,7 +23,7 @@ public class UserAdministrator extends Administrator<ArrayList<User>>{
         }
     }
 
-    UserAdministrator(){
+    public UserAdministrator(){
         super(userFileName);
         users = getCurrentData();
         if(users == null){
@@ -41,8 +41,8 @@ public class UserAdministrator extends Administrator<ArrayList<User>>{
     }
 
     public ResigterError resigterCheck(String account, String password) {
-        // 正则表达式检查账号是否只包含字母、数字和下划线，长度在3-7个字符之间
-        String accountPattern = "^[a-zA-Z0-9_]{3,7}$";
+        // 正则表达式检查账号是否只包含字母、数字和下划线，长度在3-13个字符之间
+        String accountPattern = "^[a-zA-Z0-9_]{3,13}$";
         
         // 正则表达式检查密码是否只包含可见字符（不含空格），长度在7-19个字符之间
         String passwordPattern = "^[\\S]{7,19}$";

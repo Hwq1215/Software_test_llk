@@ -19,7 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-
+import Adamin.User;
 import java.awt.Graphics2D;
 
 public class MainJFrame extends JFrame implements Config{
@@ -30,6 +30,7 @@ public class MainJFrame extends JFrame implements Config{
 	public static JLabel visableLabel;
 	private LLKListener lis;
 	private int initMode = 0;
+	private User user;
 	/**
 	 * Launch the application.
 	 */
@@ -37,7 +38,7 @@ public class MainJFrame extends JFrame implements Config{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainJFrame frame = new MainJFrame(1);
+					MainJFrame frame = new MainJFrame(1,null);
 					frame.initUI(frame.initMode);
 					
 				} catch (Exception e) {
@@ -50,8 +51,9 @@ public class MainJFrame extends JFrame implements Config{
 	/**
 	 * Create the frame.
 	 */
-	public MainJFrame(int initMode) {
+	public MainJFrame(int initMode,User user) {
 		this.initMode = initMode;
+		this.user = user;
 		this.setTitle("连连看");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(300, 300, 800, 700);
@@ -106,6 +108,7 @@ public class MainJFrame extends JFrame implements Config{
 		btnNewButton.setBounds(608, 582, 104, 50);
 		contentPane.add(btnNewButton);
 	}
+
 
 	//初始化UI
 	public void initUI(Integer enable) {

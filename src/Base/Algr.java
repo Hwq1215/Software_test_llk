@@ -1,6 +1,5 @@
 package Base;
 
-import javax.swing.ImageIcon;
 
 public class Algr implements Config{
 	
