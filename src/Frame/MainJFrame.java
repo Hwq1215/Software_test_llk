@@ -115,8 +115,8 @@ public class MainJFrame extends JFrame implements Config{
             @Override
             public void windowClosing(WindowEvent e) {
                 // 这里执行清理操作
-                cleanupResources();
-                setVisible(false); // 隐藏窗口
+				cleanupResources();
+				dispose();
             }
         });
 	}
@@ -150,7 +150,7 @@ public class MainJFrame extends JFrame implements Config{
 	//提示
 	public void giveAction() {
 		Graphics2D g = (Graphics2D) playJPanel.getGraphics();
-		PlayJPanel.giveAct(g);
+		PlayJPanel.drawAction(g);
 	}
 
 	public void handlerGameOver(){
@@ -169,9 +169,11 @@ public class MainJFrame extends JFrame implements Config{
 		
 		JButton okButton = new JButton("确定");
 		okButton.addActionListener(e -> {
-			gameOverFrame.dispose(); // 关闭游戏结束框
+			if (gameOverFrame != null) {
+				gameOverFrame.setVisible(false);
+			}
 			cleanupResources();
-			this.dispose(); // 关闭主窗口
+			this.dispose();
 		});
 	
 		gameOverFrame.add(okButton, BorderLayout.SOUTH); // 将按钮添加到框架
@@ -188,6 +190,7 @@ public class MainJFrame extends JFrame implements Config{
 	public void cleanupResources() {
 		// 移除鼠标监听器
 		if (playJPanel != null && lis != null) {
+			lis.clearResourse();
 			playJPanel.removeMouseListener(lis);
 		}
 		
@@ -195,15 +198,16 @@ public class MainJFrame extends JFrame implements Config{
 		if (timePanel != null) {
 			timePanel.stopTimer(); // 假设有 stopTimer 方法来停止计时器
 		}
-		
+
+		// 其他资源清理操作
+		if(lis != null){
+			lis = null; // 解除 LLKListener 绑定
+		}
 		// 释放图形资源（如有）
 		if (playJPanel != null) {
 			playJPanel.clearGraphics(); // 假设有一个方法来清理图形
+			playJPanel = null; // 解除 PlayJPanel 绑定
 		}
-	
-		// 其他资源清理操作
-		lis = null; // 解除 LLKListener 绑定
-		playJPanel = null; // 解除 PlayJPanel 绑定
 		// 可选：其他清理操作...
 		
 		System.out.println("清理所有资源完成");

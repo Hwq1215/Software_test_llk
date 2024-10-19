@@ -192,4 +192,10 @@ private ImageIcon getImgLocation(int x,int y) {
 	}
 	return null;
 }
+
+public void clearResourse(){
+	this.gameTimer.stop();
+	this.mainJFrame = null;
+}
+
 }
