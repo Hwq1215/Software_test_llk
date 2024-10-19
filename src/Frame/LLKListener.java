@@ -84,7 +84,7 @@ public void mouseReleased(MouseEvent e) {
 			r2 = (y-Y0)/SIZE;
 			c2 = (x-X0)/SIZE;
 			if(this.icon1!=null && this.icon2!=null && (r1!=r2 || c1!=c2 )) {
-				if( isMatch(this.icon1, this.icon2)) {
+				if( isRemovable(this.icon1, this.icon2)) {
 					// 先绘制提示线
 					for (int i = 0; i < wireList.size(); i += 2) {
 						Point p1 = wireList.get(i);
@@ -149,7 +149,7 @@ public boolean isGameEnd(ImageIcon[][] icons) {
     return true; // No icons left, game is over
 }
 
-public boolean isMatch(ImageIcon icon1,ImageIcon icon2){
+public boolean isRemovable(ImageIcon icon1,ImageIcon icon2){
 	if(icon1!=null && icon2!=null && (r1!=r2 || c1!=c2 )) {
 		if(icon1.toString().equals(icon2.toString())) {
 			
