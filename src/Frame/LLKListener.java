@@ -12,19 +12,24 @@ import Base.Point;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
+import javax.swing.Timer;
 public class LLKListener implements MouseListener,Config{
-public static int marks = 0;
+public  int marks = 0;
 private Graphics2D g;
 private int r1 = 0,r2 = 0,c1 = 0,c2 = 0;
 private ImageIcon icon1 = null,icon2 = null;
 private int count = 0;
+private MainJFrame mainJFrame;
+private Timer gameTimer;
 
-public LLKListener(Graphics2D g) {
+public LLKListener(Graphics2D g,MainJFrame frame) {
 		this.g = g;
 		//设置线条的粗细
 		this.g.setStroke(new BasicStroke(5));
 		this.g.setColor(Color.GREEN);
+		this.mainJFrame = frame;
+		gameTimer = new Timer(200,e->checkGameOver());
+		gameTimer.start();
 	}
 
 @Override
@@ -103,11 +108,6 @@ public void mouseReleased(MouseEvent e) {
 							wireList.clear();
 							this.updateMarks(1);
 							MainJFrame.visableLabel.setText(marks + "");
-							//游戏结束 TODO
-							if(marks == COLS * ROWS/2) {
-								//游戏结束，按开始重新开始
-								MainJFrame.visableLabel.setText("游戏结束，按开始重新开始");
-							}
 							try {
 								Thread.sleep(500);
 							} catch (Exception e1) {
@@ -146,8 +146,37 @@ public int updateMarks(int addmarks){
 	return marks;
 }
 
-public boolean isGameEnd(){
-	return true;
+public boolean isGameEnd(ImageIcon[][] icons) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (icons[i][j] != null) {
+                // Check if there are still icons available for matching
+                return false;
+            }
+        }
+    }
+    return true; // No icons left, game is over
+}
+
+public void checkGameOver(){
+
+	if(mainJFrame.initMode == 0 && isGameEnd(ICONS)){
+		mainJFrame.handlerGameOver();
+		this.gameTimer.stop();
+	}
+
+	if(mainJFrame.initMode == 1 && isGameEnd(ICONS,mainJFrame.timePanel.getRemainingTime())){
+		mainJFrame.handlerGameOver();
+		this.gameTimer.stop();
+	}
+	
+}
+
+public boolean isGameEnd(ImageIcon [][] icons,int restTime){
+	if(restTime < 1e-5 || isGameEnd(icons)){
+		return true;
+	}
+	return false;
 }
 
 private ImageIcon getImgLocation(int x,int y) {

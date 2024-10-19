@@ -18,7 +18,8 @@ public class StartFrame extends JFrame {
 	public static User user;
 	private JButton toggleButton = new JButton("用户登录");
 	public UserAdministrator userAdministrator;
-
+	private JButton checkupButton;
+	private HistoryFrame historyFrame;
 	/**
 	 * Launch the application.
 	 */
@@ -50,12 +51,23 @@ public class StartFrame extends JFrame {
 			gbc.anchor = GridBagConstraints.CENTER;
 			setLayout(new GridBagLayout());
 			JLabel accountLabel = new JLabel("");
+			checkupButton = new JButton("查看历史分数");
 			if(user != null){
 				accountLabel.setText("用户：" + user.account);
-			}
-			this.add(accountLabel);
+				checkupButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						historyFrame = new HistoryFrame(user.account);
+						historyFrame.setVisible(true);
+						historyFrame.updateMarks();
+					}
+				});
+				this.add(accountLabel,gbc);
+				gbc.gridy++;
+				this.add(checkupButton,gbc);
+			}  
 
-			gbc.gridy=2;
+			gbc.gridy++;
 			JButton XiuXianButton = new JButton("休闲模式");
 			XiuXianButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -74,6 +86,8 @@ public class StartFrame extends JFrame {
 					frame.initUI(1);
 				}
 			});
+
+
 			DaoJiShiButton.setSize(130, 45);
 			this.add(DaoJiShiButton,gbc);
 		}
@@ -320,7 +334,7 @@ public class StartFrame extends JFrame {
 						String password = new String(passwordField.getPassword());
 						String confirmPassword = new String(confirmPasswordField.getPassword());
 						if(password.equals(confirmPassword)){
-							ResigterError error = userAdministrator.resigterCheck(accountField.getText(),password);
+							ResigterError error = userAdministrator.registerCheck(accountField.getText(),password);
 							if(error.equals(ResigterError.No_Error)){
 								attentionLabel.setText("注册成功");
 							}else{

@@ -41,7 +41,7 @@ public class PlayJPanel extends JPanel implements Config{
 			}
 		}
 	}
-	
+
 	//提示
 	public static void giveAct(Graphics2D g) {
 		g.setStroke(new BasicStroke(5));
@@ -85,6 +85,17 @@ public class PlayJPanel extends JPanel implements Config{
 				}
 			}
 		}
-		
+
 	}
+
+	public void clearGraphics() {
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLS; j++) {
+				ICONS[i][j] = null; // 清除图像
+			}
+		}
+		wireList.clear(); // 清除绘制线列表
+		repaint(); // 重新绘制面板
+	}
+
 }

@@ -40,7 +40,7 @@ public class UserAdministrator extends Administrator<ArrayList<User>>{
         return null;
     }
 
-    public ResigterError resigterCheck(String account, String password) {
+    public ResigterError registerCheck(String account, String password) {
         // 正则表达式检查账号是否只包含字母、数字和下划线，长度在3-13个字符之间
         String accountPattern = "^[a-zA-Z0-9_]{3,13}$";
         
@@ -78,8 +78,8 @@ public class UserAdministrator extends Administrator<ArrayList<User>>{
     }
 
     //调用该方法前先调用resigterCheck来确定有无注册的问题
-    public User resigter(String account,String password){
-        if(resigterCheck(account, password).equals(ResigterError.No_Error)){
+    public User register(String account,String password){
+        if(registerCheck(account, password).equals(ResigterError.No_Error)){
             User registerUser = new User(account,password);
             users.add(registerUser);
             store();
@@ -109,7 +109,7 @@ public class UserAdministrator extends Administrator<ArrayList<User>>{
             System.out.println(user.account + "  "+ user.password);
         }
         // System.out.println(userAdministrator.getUsers());
-        System.out.println(userAdministrator.resigter("today_","234123d3%@……##"));
+        System.out.println(userAdministrator.register("today_","234123d3%@……##"));
         System.out.println(userAdministrator.login(user1.account, user1.password));
     }
 }

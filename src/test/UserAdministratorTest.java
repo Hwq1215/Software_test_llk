@@ -19,7 +19,7 @@ public class UserAdministratorTest {
     public void testLoginSuccess() {
         // 设置测试用户
         User testUser = new User("testuser", "password123");
-        userAdministrator.resigter(testUser.account, testUser.password);
+        userAdministrator.register(testUser.account, testUser.password);
 
         // 测试登录
         User loggedInUser = userAdministrator.login(testUser.account, testUser.password);
@@ -39,7 +39,7 @@ public class UserAdministratorTest {
     @Test
     public void testRegisterSuccess() {
         // 执行注册操作
-        User registeredUser = userAdministrator.resigter("newuser", "password123");
+        User registeredUser = userAdministrator.register("newuser", "password123");
         
         // 检查注册是否成功
         assertNotNull("注册失败，用户应该成功注册", registeredUser);
@@ -54,10 +54,10 @@ public class UserAdministratorTest {
     @Test
     public void testRegisterFailAccountExists() {
         // 设置测试用户并注册
-        userAdministrator.resigter("existingUser", "password123");
+        userAdministrator.register("existingUser", "password123");
 
         // 再次注册相同账号，应该返回null
-        User registeredUser = userAdministrator.resigter("existingUser", "newpassword123");
+        User registeredUser = userAdministrator.register("existingUser", "newpassword123");
         assertNull("注册失败，账户已存在", registeredUser);
     }
 }

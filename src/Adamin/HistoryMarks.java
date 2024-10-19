@@ -3,9 +3,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class HistoryMarks implements Serializable{
-    public Date date;
     public String account;
     public int marks;
+    public Date date;
 
     HistoryMarks(Date date,String account,int marks){
         this.date = date;

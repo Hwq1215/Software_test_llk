@@ -8,7 +8,7 @@ public interface Config {
 	public static final int X0 = 20;
 	public static final int Y0 = 20;
 	
-	public static final int picCounts = 7;
+	public static final int picCounts = 9;
 	
 	public static int SIZE = 40;
 	

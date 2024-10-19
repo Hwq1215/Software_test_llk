@@ -8,7 +8,7 @@ public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<H
     private static final String marksFileName = MarksAdministrator.class.getSimpleName() + Administrator.storePreix;
     private static HashMap<String,ArrayList<HistoryMarks>> marks=null;
 
-    enum SortBy{
+    public enum SortBy{
         MARKS("分数"),
         DATE("日期");
         private final String description;
@@ -36,16 +36,16 @@ public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<H
     public ArrayList<HistoryMarks> getUsersHistoryMarks(String account,SortBy sortBy){
         ArrayList<HistoryMarks> userMarksList=null;
         if (marks==null){
-            return new ArrayList<>();
+            return new ArrayList<HistoryMarks>();
         }
         else{
             userMarksList=marks.get(account);
         }
 
         if(sortBy == SortBy.DATE){
-            userMarksList.sort(Comparator.comparing(o -> o.date));
+            userMarksList.sort(Comparator.<HistoryMarks,Date>comparing(o -> o.date).reversed());
         }else if(sortBy==SortBy.MARKS){
-            userMarksList.sort(Comparator.comparingInt(o -> o.marks));
+            userMarksList.sort(Comparator.<HistoryMarks>comparingInt(o -> o.marks).reversed());
         }
         return userMarksList;
     }
