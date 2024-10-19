@@ -83,8 +83,8 @@ public void mouseReleased(MouseEvent e) {
 			}
 			r2 = (y-Y0)/SIZE;
 			c2 = (x-X0)/SIZE;
-			if(this.icon1!=null && this.icon2!=null && (r1!=r2 || c1!=c2 )) {
-				if( isRemovable(this.icon1, this.icon2)) {
+			if(this.icon1!=null && this.icon2!=null && (r1!=r2 || c1!=c2)) {
+				if( isRemovable(r1,c1,r2,c2)) {
 					// 先绘制提示线
 					for (int i = 0; i < wireList.size(); i += 2) {
 						Point p1 = wireList.get(i);
@@ -134,9 +134,9 @@ public void mouseExited(MouseEvent e) {
 
 public int updateMarks(int addmarks){	
 	if(marks + addmarks<0 || marks + addmarks>(COLS*ROWS)/2){
-		marks += addmarks;
+		
 	}else{
-
+		marks += addmarks;
 	}
 	return marks;
 }
@@ -161,7 +161,7 @@ public boolean isGameEnd(ImageIcon [][] icons,int restTime){
 }
 
 
-public boolean isRemovable(ImageIcon icon1,ImageIcon icon2){
+public boolean isRemovable(int r1,int c1,int r2,int c2){
 	if(icon1!=null && icon2!=null && (r1!=r2 || c1!=c2 )) {
 		if(icon1.toString().equals(icon2.toString())) {
 			
@@ -179,7 +179,6 @@ public boolean isRemovable(ImageIcon icon1,ImageIcon icon2){
 }
 
 public void checkGameOver(){
-
 	if(mainJFrame.initMode == 0 && isGameEnd(ICONS)){
 		mainJFrame.handlerGameOver();
 		this.gameTimer.stop();
