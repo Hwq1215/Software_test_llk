@@ -133,7 +133,11 @@ public void mouseExited(MouseEvent e) {
 }
 
 public int updateMarks(int addmarks){	
-	marks += addmarks;
+	if(marks + addmarks<0 || marks + addmarks>(COLS*ROWS)/2){
+		marks += addmarks;
+	}else{
+
+	}
 	return marks;
 }
 
@@ -148,6 +152,14 @@ public boolean isGameEnd(ImageIcon[][] icons) {
     }
     return true; // No icons left, game is over
 }
+
+public boolean isGameEnd(ImageIcon [][] icons,int restTime){
+	if(restTime < 1e-5 || isGameEnd(icons)){
+		return true;
+	}
+	return false;
+}
+
 
 public boolean isRemovable(ImageIcon icon1,ImageIcon icon2){
 	if(icon1!=null && icon2!=null && (r1!=r2 || c1!=c2 )) {
@@ -180,12 +192,6 @@ public void checkGameOver(){
 	
 }
 
-public boolean isGameEnd(ImageIcon [][] icons,int restTime){
-	if(restTime < 1e-5 || isGameEnd(icons)){
-		return true;
-	}
-	return false;
-}
 
 private ImageIcon getImgLocation(int x,int y) {
 	int x1 = SIZE, y1=SIZE;

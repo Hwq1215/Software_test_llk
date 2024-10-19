@@ -2,10 +2,10 @@ package Frame;
 import javax.swing.JFrame;      
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
+
 import javax.swing.table.DefaultTableModel;
 import Adamin.HistoryMarks;
-import java.awt.BorderLayout;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import Adamin.MarksAdministrator;
