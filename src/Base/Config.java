@@ -21,5 +21,6 @@ public interface Config {
 	
 	public ArrayList<Point> showBoradList = new ArrayList<Point>();
 
+	public int CountDownTime = 60000; //ms
 	
 }

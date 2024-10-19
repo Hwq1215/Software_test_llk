@@ -140,7 +140,7 @@ public class MainJFrame extends JFrame implements Config{
 		playJPanel.addMouseListener(lis);
 		lis.marks = 0;
 		visableLabel.setText(lis.marks+"");
-		this.timePanel = new TimePanel(5000);
+		this.timePanel = new TimePanel(CountDownTime);
 		if(enable==1) {
 			this.add(timePanel);
 		}
