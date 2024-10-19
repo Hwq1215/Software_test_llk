@@ -14,7 +14,7 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-
+import Base.MatchResult;
 import Base.Algr;
 public class PlayJPanel extends JPanel implements Config{
 	/**
@@ -115,15 +115,5 @@ public class PlayJPanel extends JPanel implements Config{
 		repaint(); // 重新绘制面板
 	}
 
-	public static class MatchResult {
-		int firstRow, firstCol;
-		int secondRow, secondCol;
 	
-		MatchResult(int firstRow, int firstCol, int secondRow, int secondCol) {
-			this.firstRow = firstRow;
-			this.firstCol = firstCol;
-			this.secondRow = secondRow;
-			this.secondCol = secondCol;
-		}
-	}
 }
