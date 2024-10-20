@@ -22,11 +22,11 @@ private int count = 0;
 private MainJFrame mainJFrame;
 private Timer gameTimer;
 
-public LLKListener(Graphics2D g,MainJFrame frame) {
-		this.g = g;
+public LLKListener(MainJFrame frame) {
+		this.g = frame.getPlayPanelGraphis();
 		//设置线条的粗细
 		this.g.setStroke(new BasicStroke(5));
-		this.g.setColor(Color.GREEN);
+		
 		this.mainJFrame = frame;
 		gameTimer = new Timer(200,e->checkGameOver());
 		gameTimer.start();
@@ -49,7 +49,7 @@ public void mouseReleased(MouseEvent e) {
 
 	// 获得事件源对象：产生事件的对象,即为游戏面板
 	JPanel panel = (JPanel) e.getSource();
-	
+	g.setColor(Color.GRAY);
 	// 获得光标按下的位置
 			int x = e.getX();
 			int y = e.getY();
@@ -133,12 +133,14 @@ public void mouseExited(MouseEvent e) {
 }
 
 public int updateMarks(int addmarks){	
-	if(marks + addmarks<0 || marks + addmarks>(COLS*ROWS)/2){
-		
-	}else{
-		marks += addmarks;
+	long newMarks = (long) marks + addmarks;
+	if(newMarks<0){
+		return 0;
+	}else if(newMarks > 100){
+		return 100;
 	}
-	return marks;
+	marks = (int)newMarks;
+	return (int)newMarks;
 }
 
 public boolean isGameEnd(ImageIcon[][] icons) {
@@ -163,9 +165,9 @@ public boolean isGameEnd(ImageIcon [][] icons,int restTime){
 
 public boolean isRemovable(int r1,int c1,int r2,int c2){
 	ImageIcon image1 = ICONS[r1][c1];
-	ImageIcon image2 = ICONS[r2][r2];
+	ImageIcon image2 = ICONS[r2][c2];
 	if(image1!=null && image2!=null && (r1!=r2 || c1!=c2 )) {
-		if(icon1.toString().equals(icon2.toString())) {
+		if(image1.toString().equals(image2.toString())) {
 			
 			if( Algr.checkCol(r1, c1, r2, c2) ||
 				Algr.checkRow(r1, c1, r2, c2) ||
@@ -194,7 +196,7 @@ public void checkGameOver(){
 }
 
 
-private ImageIcon getImgLocation(int x,int y) {
+public ImageIcon getImgLocation(int x,int y) {
 	int x1 = SIZE, y1=SIZE;
 	for(int i = 0;i<ROWS;i++) {
 		for(int j = 0;j<COLS;j++) {

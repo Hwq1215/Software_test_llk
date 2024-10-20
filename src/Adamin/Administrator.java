@@ -77,5 +77,5 @@ public class Administrator<T> implements AdministratorImf<T> {
         return TData;
     }
 
-
+    
 }

@@ -136,7 +136,7 @@ public class MainJFrame extends JFrame implements Config{
 		this.setVisible(true);
 		Graphics2D g = (Graphics2D) playJPanel.getGraphics();
 		// 新建监听对象
-		lis = new LLKListener(g,this);
+		lis = new LLKListener(this);
 		playJPanel.update(g);
 
 		//增加鼠标监听
@@ -215,4 +215,7 @@ public class MainJFrame extends JFrame implements Config{
 		System.out.println("清理所有资源完成");
 	}
 
+	public Graphics2D getPlayPanelGraphis(){
+		return (Graphics2D) playJPanel.getGraphics();
+	}
 }	

@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<HistoryMarks>>>{
     private static final String marksFileName = MarksAdministrator.class.getSimpleName() + Administrator.storePreix;
+
+
     private static HashMap<String,ArrayList<HistoryMarks>> marks=null;
     private static final int MaxMarks = 1000;
-	public final static int MinMarks = 0;
+    public final static int MinMarks = 0;
     public enum SortBy{
         MARKS("分数"),
         DATE("日期");
@@ -20,7 +22,13 @@ public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<H
             return this.description;
         }
     }
+    public static HashMap<String, ArrayList<HistoryMarks>> getMarks() {
+        return marks;
+    }
 
+    public static void setMarks(HashMap<String, ArrayList<HistoryMarks>> marks) {
+        MarksAdministrator.marks = marks;
+    }
     public MarksAdministrator(){
         super(marksFileName);
         marks = super.getCurrentData();
@@ -32,7 +40,7 @@ public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<H
         }
         return marks.get(account);
     }
-    
+
     //查询某个用户的分数，按照属性排序
     public ArrayList<HistoryMarks> getUsersHistoryMarks(String account,SortBy sortBy){
         ArrayList<HistoryMarks> userMarksList=null;
@@ -72,14 +80,23 @@ public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<H
             arr.add(historyMarks);
             marks.put(account,arr);
         }
-        store(); 
+        store();
         return true;
     }
+
 
     //持久化
     public void store(){
         this.storeDataToFileDefault(marks);
     }
+
+    public void clean(){
+        MarksAdministrator.marks = null;
+        store();
+    }
+
+
+
 }
 
 
