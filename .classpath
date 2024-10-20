@@ -3,6 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="imgs"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="lib" path="d:/eclipse-workspace/LianLianKan/jgoodies-forms-1.8.0.jar"/>
 	<classpathentry kind="lib" path="d:/eclipse-workspace/LianLianKan/lib/junit-4.13.2.jar"/>
 	<classpathentry kind="lib" path="d:/eclipse-workspace/LianLianKan/lib/hamcrest-core-1.3.jar"/>

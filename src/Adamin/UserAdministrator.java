@@ -1,11 +1,12 @@
 package Adamin;
 import java.util.ArrayList;
 
-public class UserAdministrator extends Administrator<ArrayList<User>>{
+public class UserAdministrator extends Administrator<ArrayList<User>> {
     //使用静态数据，保证数据的一致性，
     //用类的名字作为存储的文件名
     private static String userFileName = UserAdministrator.class.getSimpleName() + Administrator.storePreix;
     private static ArrayList<User> users;
+
     //注册错误的枚举类
     public static enum ResigterError {
         ACCOUNT_EXIST("账户已存在"),
@@ -13,27 +14,27 @@ public class UserAdministrator extends Administrator<ArrayList<User>>{
         PASSWORD_ILLEGAL("密码不合法"),
         No_Error("符合条件");
         private final String errorAttention;
-    
-        ResigterError(String errorAttention){
+
+        ResigterError(String errorAttention) {
             this.errorAttention = errorAttention;
         }
-    
-        public String getErrorAttention(){
+
+        public String getErrorAttention() {
             return this.errorAttention;
         }
     }
 
-    public UserAdministrator(){
+    public UserAdministrator() {
         super(userFileName);
         users = getCurrentData();
-        if(users == null){
+        if (users == null) {
             users = new ArrayList<User>();
         }
     }
-    
-    public User login(String account,String password){
-        for(User user:users){
-            if(account.equals(user.account) && password.equals(user.password)){
+
+    public User login(String account, String password) {
+        for (User user : users) {
+            if (account.equals(user.account) && password.equals(user.password)) {
                 return user;
             }
         }
@@ -43,7 +44,7 @@ public class UserAdministrator extends Administrator<ArrayList<User>>{
     public ResigterError registerCheck(String account, String password) {
         // 正则表达式检查账号是否只包含字母、数字和下划线，长度在3-13个字符之间
         String accountPattern = "^[a-zA-Z0-9_]{3,13}$";
-        
+
         // 正则表达式检查密码是否只包含可见字符（不含空格），长度在7-19个字符之间
         String passwordPattern = "^[\\S]{7,19}$";
 
@@ -69,8 +70,8 @@ public class UserAdministrator extends Administrator<ArrayList<User>>{
     // 模拟检查账户是否已经存在的方法
     private boolean isAccountExist(String account) {
         // 假设已有账户列表，可以替换为实际的账户查询逻辑
-        for(User user:users){
-            if(user.account.equals(account)){
+        for (User user : users) {
+            if (user.account.equals(account)) {
                 return true;
             }
         }
@@ -89,11 +90,11 @@ public class UserAdministrator extends Administrator<ArrayList<User>>{
     }
 
     //持久化
-    private void store(){
+    private void store() {
         this.storeDataToFileDefault(users);
     }
 
-    public ArrayList<User> getUsers(){
+    public ArrayList<User> getUsers() {
         return users;
     }
 
