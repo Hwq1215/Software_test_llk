@@ -31,7 +31,7 @@ public class LogicTest implements Config {
 
     @Test  
     public void isRemovableSimple(){
-        ICONS[2][2] = new ImageIcon("")
+        ICONS[2][2] = new ImageIcon("");
     }
 
     @Test
