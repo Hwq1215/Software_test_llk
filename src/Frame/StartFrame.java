@@ -3,6 +3,7 @@ package Frame;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 import javax.swing.undo.StateEdit;
@@ -14,12 +15,14 @@ public class StartFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel startPanel;
-	private JPanel userPanel;
+	private MainJFrame mainJFrame;
 	public static User user;
 	private JButton toggleButton = new JButton("用户登录");
 	public UserAdministrator userAdministrator;
 	private JButton checkupButton;
 	private HistoryFrame historyFrame;
+	private JButton DaoJiShiButton;
+	private JButton XiuXianButton;
 	/**
 	 * Launch the application.
 	 */
@@ -68,28 +71,31 @@ public class StartFrame extends JFrame {
 			}  
 
 			gbc.gridy++;
-			JButton XiuXianButton = new JButton("休闲模式");
+			XiuXianButton = new JButton("休闲模式");
 			XiuXianButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					MainJFrame frame = chooseMode(2);
-					frame.initUI(2);
+					mainJFrame= chooseMode(0);
+					mainJFrame.initUI(0);
 				}
 			});
+
 			XiuXianButton.setSize(130, 45);
 			this.add(XiuXianButton,gbc);
 
 			gbc.gridy++;
-			JButton DaoJiShiButton = new JButton("倒计时模式");
+			DaoJiShiButton = new JButton("倒计时模式");
 			DaoJiShiButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					MainJFrame frame = chooseMode(1);
-					frame.initUI(1);
+					mainJFrame= chooseMode(1);
+					mainJFrame.initUI(1);
 				}
 			});
 
 
 			DaoJiShiButton.setSize(130, 45);
 			this.add(DaoJiShiButton,gbc);
+
+
 		}
 	} 
 	
@@ -117,7 +123,6 @@ public class StartFrame extends JFrame {
 		setLayout(new BorderLayout());
 		
 		this.startPanel = new StartPanel();
-		this.userPanel = new UserPanel();
 		this.contentPane = startPanel;
 		// 创建按钮面板
 		JPanel toggleButtonPanel = new JPanel();
@@ -147,12 +152,40 @@ public class StartFrame extends JFrame {
 			
 	}
 
-	public MainJFrame chooseMode(int initmode ){
+	public MainJFrame chooseMode(int initmode){
+		MainJFrame mainJFrame = null;
 		if(user == null){
-			return new MainJFrame(initmode,null);
+			mainJFrame =  new MainJFrame(initmode,null);
 		}else{
-			return new MainJFrame(initmode,user);
+			mainJFrame = new MainJFrame(initmode,user);
 		}
+		mainJFrame.addComponentListener(new ComponentListener() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+			}
+			@Override
+			public void componentMoved(ComponentEvent e) {
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+				XiuXianButton.setEnabled(false);
+				DaoJiShiButton.setEnabled(false);
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				XiuXianButton.setEnabled(true);
+				DaoJiShiButton.setEnabled(true);
+				// 获取事件源并调用dispose()
+				Component source = e.getComponent();
+				if (source instanceof JFrame) {
+					JFrame frame = (JFrame) source;
+					frame.dispose(); // 释放资源
+				}
+			}
+		});
+		return mainJFrame;
 	}
 
 	public class UserPanel extends JPanel {

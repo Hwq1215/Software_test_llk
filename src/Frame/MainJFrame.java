@@ -33,7 +33,7 @@ public class MainJFrame extends JFrame implements Config{
 	private JButton endButton;
 	private JButton btnNewButton;
 	private PlayJPanel playJPanel;
-	public static JLabel visableLabel;
+	public JLabel visableLabel;
 	private LLKListener lis;
 	public int initMode = 0;
 	private User user;
@@ -115,8 +115,8 @@ public class MainJFrame extends JFrame implements Config{
             @Override
             public void windowClosing(WindowEvent e) {
                 // 这里执行清理操作
+				setVisible(false);
 				cleanupResources();
-				dispose();
             }
         });
 	}
@@ -154,7 +154,7 @@ public class MainJFrame extends JFrame implements Config{
 	}
 
 	public void handlerGameOver(){
-
+		setVisible(false);
 		// 显示游戏结束框
 		JFrame gameOverFrame = new JFrame("游戏结束");
 		gameOverFrame.setAlwaysOnTop(true); // 设置窗口总在最上层
@@ -172,8 +172,7 @@ public class MainJFrame extends JFrame implements Config{
 			if (gameOverFrame != null) {
 				gameOverFrame.setVisible(false);
 			}
-			cleanupResources();
-			this.dispose();
+			
 		});
 	
 		gameOverFrame.add(okButton, BorderLayout.SOUTH); // 将按钮添加到框架
@@ -185,6 +184,7 @@ public class MainJFrame extends JFrame implements Config{
 		if (playJPanel != null && lis != null) {
 			playJPanel.removeMouseListener(lis); // 移除鼠标监听器
 		}
+		cleanupResources();
 	}
 
 	public void cleanupResources() {
@@ -209,7 +209,6 @@ public class MainJFrame extends JFrame implements Config{
 			playJPanel = null; // 解除 PlayJPanel 绑定
 		}
 		// 可选：其他清理操作...
-		
 		System.out.println("清理所有资源完成");
 	}
 

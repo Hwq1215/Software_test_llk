@@ -101,7 +101,7 @@ public void mouseReleased(MouseEvent e) {
 					}
 						wireList.clear();
 						marks = this.updateMarks(1);
-						MainJFrame.visableLabel.setText(marks + "");
+						this.mainJFrame.visableLabel.setText(marks + "");
 						try {
 							Thread.sleep(500);
 						} catch (Exception e1) {
