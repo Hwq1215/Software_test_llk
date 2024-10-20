@@ -6,10 +6,6 @@ import java.util.Date;
 
 public class HistoryMarksTest {
     
-    public HistoryMarksTest() {
-        super();
-    }
-
     private HistoryMarks historyMarks;
 
     @Before

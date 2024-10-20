@@ -32,9 +32,9 @@ public class MainJFrame extends JFrame implements Config{
 	private JPanel contentPane;
 	private JButton endButton;
 	private JButton btnNewButton;
-	private PlayJPanel playJPanel;
+	public PlayJPanel playJPanel;
 	public JLabel visableLabel;
-	private LLKListener lis;
+	public LLKListener lis;
 	public int initMode = 0;
 	private User user;
 	public TimePanel timePanel;

@@ -181,12 +181,14 @@ public class StartFrame extends JFrame {
 			public void componentShown(ComponentEvent e) {
 				XiuXianButton.setEnabled(false);
 				DaoJiShiButton.setEnabled(false);
+				toggleButton.setEnabled(false);
 			}
 
 			@Override
 			public void componentHidden(ComponentEvent e) {
 				XiuXianButton.setEnabled(true);
 				DaoJiShiButton.setEnabled(true);
+				toggleButton.setEnabled(true);
 				// 获取事件源并调用dispose()
 				Component source = e.getComponent();
 				if (source instanceof JFrame) {

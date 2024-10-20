@@ -11,15 +11,8 @@ import Frame.PlayJPanel;
 import Frame.TimePanel;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.matches;
-
-import java.awt.Graphics2D;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
-
-import javax.rmi.CORBA.Util;
 import javax.swing.ImageIcon;
 
 public class LogicTest implements Config {
