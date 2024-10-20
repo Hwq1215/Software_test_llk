@@ -100,7 +100,7 @@ public void mouseReleased(MouseEvent e) {
 						g.drawLine(x1, y1, x2, y2);
 					}
 						wireList.clear();
-						this.updateMarks(1);
+						marks = this.updateMarks(1);
 						MainJFrame.visableLabel.setText(marks + "");
 						try {
 							Thread.sleep(500);
@@ -162,7 +162,9 @@ public boolean isGameEnd(ImageIcon [][] icons,int restTime){
 
 
 public boolean isRemovable(int r1,int c1,int r2,int c2){
-	if(icon1!=null && icon2!=null && (r1!=r2 || c1!=c2 )) {
+	ImageIcon image1 = ICONS[r1][c1];
+	ImageIcon image2 = ICONS[r2][r2];
+	if(image1!=null && image2!=null && (r1!=r2 || c1!=c2 )) {
 		if(icon1.toString().equals(icon2.toString())) {
 			
 			if( Algr.checkCol(r1, c1, r2, c2) ||
