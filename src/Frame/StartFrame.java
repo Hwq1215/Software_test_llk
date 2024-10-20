@@ -74,7 +74,12 @@ public class StartFrame extends JFrame {
 			XiuXianButton = new JButton("休闲模式");
 			XiuXianButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					mainJFrame= chooseMode(0);
+					try {
+						mainJFrame= chooseMode(0);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					mainJFrame.initUI(0);
 				}
 			});
@@ -86,7 +91,12 @@ public class StartFrame extends JFrame {
 			DaoJiShiButton = new JButton("倒计时模式");
 			DaoJiShiButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					mainJFrame= chooseMode(1);
+					try {
+						mainJFrame= chooseMode(1);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					mainJFrame.initUI(1);
 				}
 			});
@@ -152,7 +162,7 @@ public class StartFrame extends JFrame {
 			
 	}
 
-	public MainJFrame chooseMode(int initmode){
+	public MainJFrame chooseMode(int initmode) throws Exception{
 		MainJFrame mainJFrame = null;
 		if(user == null){
 			mainJFrame =  new MainJFrame(initmode,null);

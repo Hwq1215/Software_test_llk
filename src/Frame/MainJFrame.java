@@ -63,8 +63,11 @@ public class MainJFrame extends JFrame implements Config{
 	/**
 	 * Create the frame.
 	 */
-	public MainJFrame(int initMode,User user) {
+	public MainJFrame(int initMode,User user)  {
 		this.initMode = initMode;
+		if(!(initMode ==1 || initMode == 0)){
+			throw new IllegalArgumentException("无效的模式参数");
+		}
 		this.user = user;
 		this.marksAdministrator = new MarksAdministrator();
 		this.setTitle("连连看");
