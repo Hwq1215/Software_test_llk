@@ -22,6 +22,6 @@ public class HistoryMarks implements Serializable{
     HistoryMarks(String account,int marks){
         this.date = new Date();
         this.account = account;
-        this.marks = 0;
+        this.marks = marks;
     }
 }

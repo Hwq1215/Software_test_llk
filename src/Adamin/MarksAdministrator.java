@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.Date;
 public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<HistoryMarks>>>{
     private static final String marksFileName = MarksAdministrator.class.getSimpleName() + Administrator.storePreix;
-    private static HashMap<String,ArrayList<HistoryMarks>> marks=null;
 
-    enum SortBy{
+
+    private static HashMap<String,ArrayList<HistoryMarks>> marks=null;
+    private static final int MaxMarks = 1000;
+    public final static int MinMarks = 0;
+    public enum SortBy{
         MARKS("分数"),
         DATE("日期");
         private final String description;
@@ -19,7 +22,13 @@ public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<H
             return this.description;
         }
     }
+    public static HashMap<String, ArrayList<HistoryMarks>> getMarks() {
+        return marks;
+    }
 
+    public static void setMarks(HashMap<String, ArrayList<HistoryMarks>> marks) {
+        MarksAdministrator.marks = marks;
+    }
     public MarksAdministrator(){
         super(marksFileName);
         marks = super.getCurrentData();
@@ -31,21 +40,21 @@ public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<H
         }
         return marks.get(account);
     }
-    
+
     //查询某个用户的分数，按照属性排序
     public ArrayList<HistoryMarks> getUsersHistoryMarks(String account,SortBy sortBy){
         ArrayList<HistoryMarks> userMarksList=null;
         if (marks==null){
-            return new ArrayList<>();
+            return new ArrayList<HistoryMarks>();
         }
         else{
             userMarksList=marks.get(account);
         }
 
         if(sortBy == SortBy.DATE){
-            userMarksList.sort(Comparator.comparing(o -> o.date));
+            userMarksList.sort(Comparator.<HistoryMarks,Date>comparing(o -> o.date).reversed());
         }else if(sortBy==SortBy.MARKS){
-            userMarksList.sort(Comparator.comparingInt(o -> o.marks));
+            userMarksList.sort(Comparator.<HistoryMarks>comparingInt(o -> o.marks).reversed());
         }
         return userMarksList;
     }
@@ -53,6 +62,9 @@ public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<H
     //输入某个用户的分数，成功保存输出true
     public boolean setUsersHistoryMarks(String account,int mark){
         //拿到现在的时间
+        if(mark<MinMarks || mark>MaxMarks){
+            return false;
+        }
         HistoryMarks historyMarks = new HistoryMarks(new Date(),account,mark);
         //HashMap如果没有account就加入，把historyMarks放到指定的value的数组中去。
         if (marks==null){
@@ -68,14 +80,23 @@ public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<H
             arr.add(historyMarks);
             marks.put(account,arr);
         }
-        store(); 
+        store();
         return true;
     }
+
 
     //持久化
     public void store(){
         this.storeDataToFileDefault(marks);
     }
+
+    public void clean(){
+        MarksAdministrator.marks = null;
+        store();
+    }
+
+
+
 }
 
 
