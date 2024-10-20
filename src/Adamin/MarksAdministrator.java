@@ -7,7 +7,8 @@ import java.util.Date;
 public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<HistoryMarks>>>{
     private static final String marksFileName = MarksAdministrator.class.getSimpleName() + Administrator.storePreix;
     private static HashMap<String,ArrayList<HistoryMarks>> marks=null;
-
+    private static final int MaxMarks = 1000;
+	public final static int MinMarks = 0;
     public enum SortBy{
         MARKS("分数"),
         DATE("日期");
@@ -53,6 +54,9 @@ public class MarksAdministrator extends Administrator<HashMap<String,ArrayList<H
     //输入某个用户的分数，成功保存输出true
     public boolean setUsersHistoryMarks(String account,int mark){
         //拿到现在的时间
+        if(mark<MinMarks || mark>MaxMarks){
+            return false;
+        }
         HistoryMarks historyMarks = new HistoryMarks(new Date(),account,mark);
         //HashMap如果没有account就加入，把historyMarks放到指定的value的数组中去。
         if (marks==null){
